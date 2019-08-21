@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFrag"
+    >
+
+    <fragment
+        android:id="@+id/splashFrag"
+        android:name="com.movie.app.ui.splash.SplashFrag"
+        android:label="SplashFrag" >
+
+        <action
+            android:id="@+id/action_splashFrag_to_searchFrag"
+            app:destination="@id/searchFrag"
+            app:popUpTo="@+id/nav_graph" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFrag"
+        android:name="com.movie.app.ui.search.SearchFrag"
+        android:label="SearchFrag" >
+        <action
+            android:id="@+id/action_searchFrag_to_moviewDetailFrag"
+            app:destination="@id/moviewDetailFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/moviewDetailFrag"
+        android:name="com.movie.app.ui.detail.MovieDetailFrag"
+        android:label="MoviewDetailFrag" />
+
+
+</navigation>
