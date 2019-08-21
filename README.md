@@ -5,6 +5,7 @@ A sample for using:
  - [ ] MVVM
  - [ ] RxJava
  - [ ] Koin
+ - [ ] KoinTest
  - [ ] Retrofit.
  - [ ] Navigation Comoponent
  - [ ] Google Paging Library
