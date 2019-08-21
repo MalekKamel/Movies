@@ -6,8 +6,8 @@ import com.annimon.stream.Stream
 import com.movie.app.shared.data.DataManager
 import com.movie.app.shared.data.model.Movie
 import com.movie.app.shared.data.model.MoviesRequest
+import com.movie.app.shared.paging.AppItemKeyedDataSource
 import com.movie.app.shared.paging.AppPaging
-import com.movie.app.shared.paging.AppPositionalDataSource
 import com.movie.app.shared.rx.FlowableUtil
 import com.movie.app.shared.rx.disposeBy
 import com.movie.app.shared.vm.BaseViewModel
@@ -21,25 +21,22 @@ val searchModule = module {
 
 class SearchVm(dataManager: DataManager) : BaseViewModel(dataManager) {
 
+    var allMovies: MutableList<Movie> = mutableListOf()
+
     fun isValidSearchString(query: String): Boolean {
         return query.isNotEmpty()
     }
 
     fun loadMovies(request: MoviesRequest): LiveData<PagedList<Movie>> {
-        val dataSource = AppPositionalDataSource<Movie>()
+        val dataSource = AppItemKeyedDataSource<Int, Movie>()
                 .loadInitialCallback { params ->
-                    loadMovies(request.nextPage(1)) {
-                        params.callback.onResult(it, 0)
-                    }
+                    loadMovies(request) { params.callback.onResult(it, 1, 2) }
                 }
                 .loadAfterCallback { params ->
-                    loadMovies(request.nextPage(params.params.startPosition)) {
-                        params.callback.onResult(it)
-                    }
+                    loadMovies(request.nextPage(params.params.key)
+                    ) { params.callback.onResult(it, params.params.key + 1) }
                 }
-
-        return AppPaging(appPageKeyedDataSource = dataSource)
-                .dataSource(dataSource)
+        return AppPaging(dataSource = dataSource)
                 .build()
     }
 
@@ -62,7 +59,12 @@ class SearchVm(dataManager: DataManager) : BaseViewModel(dataManager) {
                     }
 
                     Stream.of(response.results).forEach { item -> item.latPage = response.page }
+
+                    allMovies.clear()
+                    allMovies.addAll(response.results!!)
+
                     callback(response.results!!)
+
                     loading(false)
                 }.disposeBy(disposables)
 

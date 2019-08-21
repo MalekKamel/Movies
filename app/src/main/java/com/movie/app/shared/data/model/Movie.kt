@@ -54,13 +54,5 @@ data class Movie(
                 return "https://image.tmdb.org/t/p/w500$posterPath"
         }
 
-//    var posterPath: String? = null
-//        get() = "https://image.tmdb.org/t/p/w500" + field!!
-//
-//    internal var baseImageUrl = "https://image.tmdb.org/t/p/w500"
-//
-//    init {
-//        this.posterPath = posterPath
-//    }
-
+        override fun toString(): String = title ?: ""
 }

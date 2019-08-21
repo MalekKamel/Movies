@@ -16,5 +16,6 @@
     <string name="dismiss">Dismiss</string>
     <string name="no_memory_free_up_space">You don\'t have enough memory, please free up space first.</string>
     <string name="movies">Movies</string>
+    <string name="search">Search</string>
 
 </resources>
