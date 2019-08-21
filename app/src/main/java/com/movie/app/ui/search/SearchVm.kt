@@ -6,7 +6,7 @@ import com.annimon.stream.Stream
 import com.movie.app.shared.data.DataManager
 import com.movie.app.shared.data.model.Movie
 import com.movie.app.shared.data.model.MoviesRequest
-import com.movie.app.shared.paging.AppItemKeyedDataSource
+import com.movie.app.shared.paging.AppPagedKeyedDataSource
 import com.movie.app.shared.paging.AppPaging
 import com.movie.app.shared.rx.FlowableUtil
 import com.movie.app.shared.rx.disposeBy
@@ -28,7 +28,7 @@ class SearchVm(dataManager: DataManager) : BaseViewModel(dataManager) {
     }
 
     fun loadMovies(request: MoviesRequest): LiveData<PagedList<Movie>> {
-        val dataSource = AppItemKeyedDataSource<Int, Movie>()
+        val dataSource = AppPagedKeyedDataSource<Int, Movie>()
                 .loadInitialCallback { params ->
                     loadMovies(request) { params.callback.onResult(it, 1, 2) }
                 }

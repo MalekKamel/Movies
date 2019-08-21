@@ -5,7 +5,7 @@ import androidx.paging.PagedList
 
 data class AppPaging<K, V>(
         var pageSize: Int = 10,
-        var dataSource: AppItemKeyedDataSource<K, V>
+        var dataSource: AppPagedKeyedDataSource<K, V>
 ) {
 
     fun build(): LiveData<PagedList<V>> {

@@ -2,7 +2,7 @@ package com.movie.app.shared.paging
 
 import androidx.paging.PageKeyedDataSource
 
-class AppItemKeyedDataSource<K, V> : PageKeyedDataSource<K, V>() {
+class AppPagedKeyedDataSource<K, V> : PageKeyedDataSource<K, V>() {
     private var loadInitialCallback: ((InitialParams<K, V>) -> Unit)? = null
     private var loadAfterCallback: ((AfterParams<K, V>) -> Unit)? = null
     private var initialLoadSize = 20
@@ -23,12 +23,12 @@ class AppItemKeyedDataSource<K, V> : PageKeyedDataSource<K, V>() {
 
     override fun loadBefore(params: LoadParams<K>, callback: LoadCallback<K, V>) {}
 
-    fun loadInitialCallback(loadInitialCallback: (InitialParams<K, V>) -> Unit): AppItemKeyedDataSource<K, V> {
+    fun loadInitialCallback(loadInitialCallback: (InitialParams<K, V>) -> Unit): AppPagedKeyedDataSource<K, V> {
         this.loadInitialCallback = loadInitialCallback
         return this
     }
 
-    fun loadAfterCallback(loadAfterCallback: (AfterParams<K, V>) -> Unit): AppItemKeyedDataSource<K, V> {
+    fun loadAfterCallback(loadAfterCallback: (AfterParams<K, V>) -> Unit): AppPagedKeyedDataSource<K, V> {
         this.loadAfterCallback = loadAfterCallback
         return this
     }

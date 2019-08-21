@@ -36,6 +36,9 @@ class SearchFrag : BaseFrag<SearchVm>() {
     private fun setupSearch() {
 
         btnSearch.setOnClickListener {
+            if (!vm.isValidSearchString(etSearch.textString()))
+                return@setOnClickListener
+
             loadMovies(MoviesRequest(search = etSearch.textString()))
         }
 
